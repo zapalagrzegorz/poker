@@ -5,13 +5,18 @@ require 'byebug'
 
 COLORS = %w[Spades Hearts Diamonds Clubs].freeze
 # omiting 12 of Knight Card
-VALUES = ((1..11).to_a + (13..14).to_a).freeze
 # all_cards
+UNICODE_CARD_VALUES = ((1..11).to_a + (13..14).to_a).freeze
+# ALL_UNICODE_CARD_VALUES.delete_at(12)
+
+# .freeze
+# korekta 12 -> 13
+# 13 -> 14
 
 class Deck
   def self.cards
     cards = []
-    VALUES.each do |value|
+    UNICODE_CARD_VALUES.each do |value|
       COLORS.each do |color|
         cards << Card.new(value, color)
       end

@@ -93,7 +93,8 @@ describe Deck do
 
     it 'puts array of cards to the deck' do
       deck.take_cards(52)
-      deck.return(some_cards)
+      # expect { deck.return(some_cards) }.to change { deck.size }.by(2)
+      expect { deck.return(some_cards) }.to change { deck.size }.from(0).to(2)
       expect(deck.size).to eq(2)
     end
 
@@ -105,18 +106,25 @@ describe Deck do
   end
 
   describe '#shuffle' do
-    it 'makes cards in deck randomized' 
+    it 'makes cards in deck randomized' do
       # card_props = {}
-      # first_card_new = Deck.new.cards.first
+      deck.take_cards(52)
+      last_card = all_cards.last
+      deck.return(all_cards)
+      deck.shuffle
+      expect(deck.take_cards(52).last).not_to eq(last_card)
       # first_card_old = all_cards.last
 
       # expect(first_card_old).to eq(deck.take_cards(1).first)
       # deck.shuffle
 
       # expect(deck.first).not_to eq(first_card_new)
-    # end
+    end
   end
 
+  describe '#deal_hand' do
+    it 'does something with Hand'
+  end
   # dodawania i odejmowanie z talii
   #   describe '#add_player' do
   #   let(:player) { double('player', add_card: nil) }

@@ -22,7 +22,7 @@ describe Card do
       let(:queen_of_hearts) { Card.new(13, 'Hearts') }
 
       it 'sets up initial @value, @color, @symbol and @avail' do
-        expect(queen_of_hearts.value).to eq(13)
+        expect(queen_of_hearts.value).to eq(12)
         expect(queen_of_hearts.color).to eq('Hearts')
         expect(queen_of_hearts.symbol).to eq('🂽')
       end

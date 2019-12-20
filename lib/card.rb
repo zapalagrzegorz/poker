@@ -12,8 +12,13 @@ UNICODE_COLORS_MAP = {
 class Card
   attr_reader :value, :color, :symbol, :avail
 
+  # wartości unicode'owe uwzględniają również kartę Knight'a, którego zazwyczaj nie ma
+  # w talii. Dostał on numer 12 - między Waletem i Damą, stąd tutaj korekta, aby
+  # zachować ciągłość
   def initialize(value, color)
-    @value = value
+    @unicode_value = value
+
+    @value = value < 11 ? value : value - 1
     @color = color
     @symbol = build_emoji
     @avail = true
@@ -36,7 +41,7 @@ class Card
 
   def build_emoji
     color = UNICODE_COLORS_MAP[@color.to_sym]
-    unicode_code_point = "0x1F0#{color}#{@value.to_s(16)}"
+    unicode_code_point = "0x1F0#{color}#{@unicode_value.to_s(16)}"
     [unicode_code_point.hex].pack('U*')
   end
 
