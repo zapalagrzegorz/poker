@@ -28,19 +28,4 @@ describe Card do
       end
     end
   end
-
-  describe '#add_player' do
-    let(:player) { double('player', add_card: nil) }
-
-    it 'binds card to player' do
-      expect(player).to receive(:add_card).with(card)
-
-      card.add_player(player)
-    end
-
-    it 'changes card to unavailable' do
-      expect { card.add_player(player) }
-        .to change { card.avail }.from(true).to(false)
-    end
-  end
 end
