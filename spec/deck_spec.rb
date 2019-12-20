@@ -2,6 +2,7 @@
 
 require 'rspec'
 require 'deck'
+require 'card.rb'
 
 describe Deck do
   subject(:deck) { Deck.new }
@@ -30,41 +31,92 @@ describe Deck do
     #     all_cards.map { |card| [card.suit, card.value] }.uniq.count
     #   ).to eq(all_cards.count)
     # end
-
-    it 'is shuffled' do
-      # card_props = {}
-      first_card_new = Deck.new.cards.first
-      first_card_old = deck.cards.first
-
-      expect(first_card_old).to eq(first_card_new)
-      # card_props[:color] = deck.cards.first.color
-      # card_props[:value] =  deck.cards.first.value
-      shuffled_deck = deck.cards.shuffle
-
-      expect(shuffled_deck.first).not_to eq(first_card_new)
-    end
   end
 
-  # aby testować hidden props, jest metoda statyczna
+  # aby testować hidden props, jest metoda statyczna Deck.cards
+  # stawianie tu mocka - oznaczałoby, że w teście napisałbym własną implementację
+  # budującą talię
   # it 'should not expose its cards' do
   # expect(deck).not_to respond_to(:cards)
   # end
-  context 'when try to peek cards directly ' do
-    it 'is not allowed' do
-      expect(deck).not_to respond_to(:cards)
-    end
+  it 'should not expose its cards' do
+    expect(deck).not_to respond_to(:cards)
   end
 
+  it 'made deck of class Deck' do
+    expect(deck).to be_a(Deck)
+  end
 
   # take
   describe '#take' do
-    it 'takes cards from the top' do
-      expect(deck.take(1)).to be(Cards)
-    end
-    it 'removes cards from the deck'
+    let(:first_card) { Card.new(1, 'Spades') }
+    let(:last_card) { Card.new(14, 'Clubs') }
 
-    it 'doesn\'t allow to take more cards than in the deck'
+    it 'takes a card' do
+      expect(deck.take_cards(1)[0]).to be_a(Card)
+    end
+
+    it 'takes cards from the top' do
+      # expect(last_card).to be(last_card)
+      expect(deck.take_cards(1)).to eq([last_card])
+      # expect(deck.take_cards(2)).to eq([,last_card])
+      # expect(deck.take_cards(1)[0].color).to eq('Clubs')
+    end
+
+    it 'removes cards from the deck' do
+      deck.take_cards(2)
+      expect(deck.size).to eq(50)
+    end
+
+    it 'doesn\'t allow to take more cards than in the deck' do
+      # expect { deck.take_cards(53) }.to raise_error CardsNotLeftError
+      expect { deck.take_cards(53) }.to raise_error 'Insufficent number of cards'
+    end
   end
+
+  describe '#return' do
+    let(:some_card) { Card.new(4, 'Spades') }
+    let(:some_cards) { [some_card, Card.new(6, 'Hearts')] }
+
+    it 'accepts cards' do
+      expect { deck.return(some_card) }.not_to raise_error
+      expect { deck.return('not_card') }.to raise_error 'Deck#return accepts only Cards'
+    end
+
+    it 'puts card to the deck' do
+      # expect(deck.size).to eq(52)
+      deck.take_cards(52)
+      # expect(deck.size).to eq(1)
+      deck.return(some_card)
+      expect(deck.size).to eq(1)
+    end
+
+    it 'puts array of cards to the deck' do
+      deck.take_cards(52)
+      deck.return(some_cards)
+      expect(deck.size).to eq(2)
+    end
+
+    it 'puts cards to the bottom of deck' do
+      deck.take_cards(51)
+      deck.return(some_cards)
+      expect(deck.take_cards(2)).not_to include(some_card)
+    end
+  end
+
+  describe '#shuffle' do
+    it 'makes cards in deck randomized' 
+      # card_props = {}
+      # first_card_new = Deck.new.cards.first
+      # first_card_old = all_cards.last
+
+      # expect(first_card_old).to eq(deck.take_cards(1).first)
+      # deck.shuffle
+
+      # expect(deck.first).not_to eq(first_card_new)
+    # end
+  end
+
   # dodawania i odejmowanie z talii
   #   describe '#add_player' do
   #   let(:player) { double('player', add_card: nil) }

@@ -28,6 +28,25 @@ class Deck
     @cards.size
   end
 
+  def take_cards(number)
+    raise 'Insufficent number of cards' if number > @cards.size
+
+    @cards.pop(number)
+  end
+
+  def return(cards)
+    if cards.is_a?(Array)
+      raise 'Deck#return accepts only Cards' unless cards.all? { |card| card.is_a?(Card) }
+    else
+      raise 'Deck#return accepts only Cards' unless cards.is_a?(Card)
+    end
+    @cards.unshift(*cards)
+  end
+
+  def shuffle
+    @cards.shuffle!
+  end
+
   private
 
   def build_deck
@@ -39,5 +58,11 @@ class Deck
     end
     # cards.shuffle
     cards
+  end
+end
+
+class CardsNotLeftError < StandardError
+  def message
+    puts 'Insufficent number of cards'
   end
 end

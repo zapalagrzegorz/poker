@@ -29,8 +29,7 @@ class Card
   # end
 
   def ==(other)
-    @value == other.value &&
-      @color == other.color
+    @value == other.value && @color == other.color
   end
 
   private
