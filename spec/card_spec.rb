@@ -19,7 +19,7 @@ describe Card do
     end
 
     context 'with queen_of_hearts' do
-      let(:queen_of_hearts) { Card.new(13, 'Hearts') }
+      let(:queen_of_hearts) { Card.new(12, 'Hearts') }
 
       it 'sets up initial @value, @color, @symbol and @avail' do
         expect(queen_of_hearts.value).to eq(12)

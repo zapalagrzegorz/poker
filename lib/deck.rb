@@ -6,7 +6,16 @@ require 'byebug'
 COLORS = %w[Spades Hearts Diamonds Clubs].freeze
 # omiting 12 of Knight Card
 # all_cards
-UNICODE_CARD_VALUES = ((1..11).to_a + (13..14).to_a).freeze
+
+# UNICODE_CARD_VALUES = ((1..11).to_a + (13..14).to_a).freeze
+# należałoby zrobić słownik mapujący wartości słowne na liczby z UNICODE
+CARD_VALUES = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13].freeze
+# 1 - Ace
+# 14 - King,
+# 13 - Q
+# 11 - Jack
+# 10 - 10
+# 9 - 9 etc.
 # ALL_UNICODE_CARD_VALUES.delete_at(12)
 
 # .freeze
@@ -16,7 +25,7 @@ UNICODE_CARD_VALUES = ((1..11).to_a + (13..14).to_a).freeze
 class Deck
   def self.cards
     cards = []
-    UNICODE_CARD_VALUES.each do |value|
+    CARD_VALUES.each do |value|
       COLORS.each do |color|
         cards << Card.new(value, color)
       end

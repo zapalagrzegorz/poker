@@ -50,17 +50,14 @@ describe Deck do
   # take
   describe '#take' do
     let(:first_card) { Card.new(1, 'Spades') }
-    let(:last_card) { Card.new(14, 'Clubs') }
+    last_card = Card.new(13, 'Clubs')
 
     it 'takes a card' do
       expect(deck.take_cards(1)[0]).to be_a(Card)
     end
 
     it 'takes cards from the top' do
-      # expect(last_card).to be(last_card)
       expect(deck.take_cards(1)).to eq([last_card])
-      # expect(deck.take_cards(2)).to eq([,last_card])
-      # expect(deck.take_cards(1)[0].color).to eq('Clubs')
     end
 
     it 'removes cards from the deck' do
