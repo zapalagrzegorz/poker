@@ -5,7 +5,10 @@
 ### Rules
 
 Each player is dealt five cards.
-Players bet; each player may fold, see the current bet, or raise.
+Players bet; each player may 
+    fold, 
+    see the current bet (check), 
+    or raise.
 
 In turn, each player can choose to discard up to three cards.
     They are dealt new cards from the deck to replace their old cards.

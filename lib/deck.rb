@@ -1,14 +1,13 @@
 # frozen_string_literal: true
 
 require_relative 'card.rb'
+require_relative 'hand.rb'
 require 'byebug'
 
 COLORS = %w[Spades Hearts Diamonds Clubs].freeze
 # omiting 12 of Knight Card
 # all_cards
 
-# UNICODE_CARD_VALUES = ((1..11).to_a + (13..14).to_a).freeze
-# należałoby zrobić słownik mapujący wartości słowne na liczby z UNICODE
 CARD_VALUES = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13].freeze
 # 1 - Ace
 # 14 - King,
@@ -16,11 +15,6 @@ CARD_VALUES = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13].freeze
 # 11 - Jack
 # 10 - 10
 # 9 - 9 etc.
-# ALL_UNICODE_CARD_VALUES.delete_at(12)
-
-# .freeze
-# korekta 12 -> 13
-# 13 -> 14
 
 class Deck
   def self.cards
@@ -30,7 +24,6 @@ class Deck
         cards << Card.new(value, color)
       end
     end
-    # cards.shuffle
     cards
   end
 
@@ -59,6 +52,10 @@ class Deck
 
   def shuffle
     @cards.shuffle!
+  end
+
+  def deal_hand
+    Hand.new(take_cards(5))
   end
 
   private

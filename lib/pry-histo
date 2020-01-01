@@ -1,0 +1,6 @@
+load 'hand.rb'
+cards = [Card.new(1, 'Spades'), Card.new(10, 'Spades'), Card.new(11, 'Spades'), Card.new(12, 'Spades'),  Card.new(13, 'Spades')]
+pry --hist -n
+hist -n --save 1..100 pry-histo
+hand = Hand.new(cards)
+hand.trade_cards([0,1], nil)

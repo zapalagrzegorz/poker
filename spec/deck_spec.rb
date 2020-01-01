@@ -2,6 +2,7 @@
 
 require 'rspec'
 require 'deck'
+require 'hand'
 require 'card.rb'
 
 describe Deck do
@@ -120,8 +121,21 @@ describe Deck do
   end
 
   describe '#deal_hand' do
-    it 'does something with Hand'
+    let(:deal_hand) { deck.deal_hand }
+
+    it 'should return a new hand' do
+      # hand = deck.deal_hand
+      expect(deal_hand).to be_a(Hand)
+      expect(deal_hand.cards.count).to eq(5)
+    end
+
+    it 'should take cards from the deck' do
+      deal_hand
+      expect { deck.deal_hand }.to change { deck.size }.by(-5)
+
+    end
   end
+
   # dodawania i odejmowanie z talii
   #   describe '#add_player' do
   #   let(:player) { double('player', add_card: nil) }

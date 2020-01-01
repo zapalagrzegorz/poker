@@ -12,6 +12,8 @@ UNICODE_COLORS_MAP = {
 class Card
   attr_reader :value, :color, :symbol, :avail
 
+  include Comparable
+
   def initialize(value, color)
     @value = value
     @color = color
@@ -24,13 +26,23 @@ class Card
     unavail
   end
 
-  # def discard
-  # status
-  # end
-
   def ==(other)
     @value == other.value && @color == other.color
   end
+
+  def to_s
+    @symbol
+  end
+
+  def <=>(other)
+    @value <=> other.value
+  end
+
+  #   if value != other_card.value
+  #   Card.values.index(value) <=> Card.values.index(other_card.value)
+  # elsif suit != other_card.suit
+  #   Card.suits.index(suit) <=> Card.suits.index(other_card.suit)
+  # end
 
   private
 
